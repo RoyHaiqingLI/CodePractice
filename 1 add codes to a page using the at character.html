@@ -1,0 +1,181 @@
+<!-- Single statement blocks  -->
+@{ var total = 7; }
+@{ var myMessage = "Hello World"; }
+
+<!-- Inline expressions -->
+<p>The value of your account is: @total </p>
+<p>The value of myMessage is: @myMessage</p>
+
+<!-- Multi-statement block -->
+@{
+    var greeting = "Welcome to our site!";
+    var weekDay = DateTime.Now.DayOfWeek;
+    var greetingMessage = greeting + " Today is: " + weekDay;
+}
+<p>The greeting is: @greetingMessage</p>
+
+
+<!-- Embedding a backslash in a string -->
+@{ var myFilePath = @"C:\MyFolder\"; }
+<p>The path is: @myFilePath</p>
+
+<!-- Embedding double quotation marks in a string -->
+@{ var myQuote = @"The person said: ""Hello, today is Monday."""; }
+<p>@myQuote</p>
+
+
+Introduction to ASP.NET Web Programming Using the Razor Syntax (C#)
+
+    02/07/2014
+    40 minutes to read
+    Contributors
+        Tom FitzMacken Luke Latham mzohrab mihe Andy Pasic all 
+
+by Tom FitzMacken
+
+    This article gives you an overview of programming with ASP.NET Web Pages using the Razor syntax. ASP.NET is Microsoft's technology for running dynamic web pages on web servers. This articles focuses on using the C# programming language.
+
+    What you'll learn:
+
+        The top 8 programming tips for getting started with programming ASP.NET Web Pages using Razor syntax.
+        Basic programming concepts you'll need.
+        What ASP.NET server code and the Razor syntax is all about.
+
+    Software versions
+
+        ASP.NET Web Pages (Razor) 3
+
+    This tutorial also works with ASP.NET Web Pages 2.
+
+The Top 8 Programming Tips
+
+This section lists a few tips that you absolutely need to know as you start writing ASP.NET server code using the Razor syntax.
+
+Note
+
+The Razor syntax is based on the C# programming language, and that's the language that's used most often with ASP.NET Web Pages. However, the Razor syntax also supports the Visual Basic language, and everything you see you can also do in Visual Basic. For details, see the appendix Visual Basic Language and Syntax.
+
+You can find more details about most of these programming techniques later in the article.
+1. You add code to a page using the @ character
+
+The @ character starts inline expressions, single statement blocks, and multi-statement blocks:
+HTML
+
+<!-- Single statement blocks  -->
+@{ var total = 7; }
+@{ var myMessage = "Hello World"; }
+
+<!-- Inline expressions -->
+<p>The value of your account is: @total </p>
+<p>The value of myMessage is: @myMessage</p>
+
+<!-- Multi-statement block -->
+@{
+    var greeting = "Welcome to our site!";
+    var weekDay = DateTime.Now.DayOfWeek;
+    var greetingMessage = greeting + " Today is: " + weekDay;
+}
+<p>The greeting is: @greetingMessage</p>
+
+This is what these statements look like when the page runs in a browser:
+
+Razor-Img1
+
+Tip
+
+HTML Encoding
+
+When you display content in a page using the @ character, as in the preceding examples, ASP.NET HTML-encodes the output. This replaces reserved HTML characters (such as < and > and &) with codes that enable the characters to be displayed as characters in a web page instead of being interpreted as HTML tags or entities. Without HTML encoding, the output from your server code might not display correctly, and could expose a page to security risks.
+
+If your goal is to output HTML markup that renders tags as markup (for example <p></p> for a paragraph or <em></em> to emphasize text), see the section Combining Text, Markup, and Code in Code Blocks later in this article.
+
+You can read more about HTML encoding in Working with Forms.
+2. You enclose code blocks in braces
+
+A code block includes one or more code statements and is enclosed in braces.
+HTML
+
+<!-- Single statement block.  -->
+@{ var theMonth = DateTime.Now.Month; }
+<p>The numeric value of the current month: @theMonth</p>
+
+<!-- Multi-statement block. -->
+@{
+    var outsideTemp = 79;
+    var weatherMessage = "Hello, it is " + outsideTemp + " degrees.";
+}
+<p>Today's weather: @weatherMessage</p>
+
+The result displayed in a browser:
+
+Razor-Img2
+3. Inside a block, you end each code statement with a semicolon
+
+Inside a code block, each complete code statement must end with a semicolon. Inline expressions don't end with a semicolon.
+HTML
+
+<!-- Single-statement block -->
+@{ var theMonth = DateTime.Now.Month; }
+
+<!-- Multi-statement block -->
+@{
+    var outsideTemp = 79;
+    var weatherMessage = "Hello, it is " + outsideTemp + " degrees.";
+}
+
+<!-- Inline expression, so no semicolon -->
+<p>Today's weather: @weatherMessage</p>
+
+4. You use variables to store values
+
+You can store values in a variable, including strings, numbers, and dates, etc. You create a new variable using the var keyword. You can insert variable values directly in a page using @.
+HTML
+
+<!-- Storing a string -->
+@{ var welcomeMessage = "Welcome, new members!"; }
+<p>@welcomeMessage</p>
+
+<!-- Storing a date -->
+@{ var year = DateTime.Now.Year; }
+
+<!-- Displaying a variable -->
+<p>Welcome to our new members who joined in @year!</p>
+
+The result displayed in a browser:
+
+Razor-Img3
+
+5. You enclose literal string values in double quotation marks
+
+A string is a sequence of characters that are treated as text. To specify a string, you enclose it in double quotation marks:
+CSHTML
+
+@{ var myString = "This is a string literal"; }
+
+If the string that you want to display contains a backslash character ( \ ) or double quotation marks ( " ), use a verbatim string literal that's prefixed with the @ operator. (In C#, the \ character has special meaning unless you use a verbatim string literal.)
+
+HTML
+
+<!-- Embedding a backslash in a string -->
+@{ var myFilePath = @"C:\MyFolder\"; }
+<p>The path is: @myFilePath</p>
+
+To embed double quotation marks, use a verbatim string literal and repeat the quotation marks:
+HTML
+
+<!-- Embedding double quotation marks in a string -->
+@{ var myQuote = @"The person said: ""Hello, today is Monday."""; }
+<p>@myQuote</p>
+
+Here's the result of using both of these examples in a page:
+
+Razor-Img4
+
+Note
+
+
+<!--6. Code is case sensitive -->
+@{
+    var lastName = "Smith";
+    var LastName = "Jones";
+}
